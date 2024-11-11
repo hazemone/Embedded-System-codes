@@ -11,7 +11,7 @@ class BLE():
 
     def __init__(self, name):
         
-        self.name = Please change the name of this bluetooth
+        self.name = name
         self.ble = ubluetooth.BLE()
         self.ble.active(True)
 
@@ -50,14 +50,14 @@ class BLE():
             self.advertiser()
             self.disconnected()
         
-        elif event == 4:
+        elif event == 3:
             '''New message received'''
             
             buffer = self.ble.gatts_read(self.rx)
-            message = buffer.decode('UTF-8')[:-1]
+            message = buffer.decode('UTF-8').strip()
             print(message)
             
-            if received == 'blue_led':
+            if message == 'blue_led':
                 blue_led.value(not blue_led.value())
 
             
@@ -87,4 +87,4 @@ class BLE():
         
 # test
 blue_led = Pin(2, Pin.OUT)
-ble = BLE("ESP32")
+ble = BLE("EAT237")
